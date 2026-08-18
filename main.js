@@ -269,8 +269,19 @@ if (!feed) {
   throw new Error('The #feed element was not found.');
 }
 
+const productDesignHeader = document.createElement('div');
+productDesignHeader.className = 'section-heading';
+productDesignHeader.id = 'product-design';
+productDesignHeader.textContent = 'Product Design';
+feed.appendChild(productDesignHeader);
+
 projects.forEach((project, index) => {
   if (project.layout === 'quad-group') {
+    const graphicDesignHeader = document.createElement('div');
+    graphicDesignHeader.className = 'section-heading';
+    graphicDesignHeader.id = 'grafisch-design';
+    graphicDesignHeader.textContent = 'Grafisch Design';
+    feed.appendChild(graphicDesignHeader);
     feed.appendChild(createQuadGroup(project));
     return;
   }
@@ -284,7 +295,7 @@ about.id = 'about';
 about.className = 'about-section';
 about.innerHTML = `
   <div class="about-divider">
-    <span class="about-divider-label">About</span>
+    <span class="about-divider-label">About Me</span>
   </div>
   <div class="about-main">
     <div class="about-block">
@@ -296,11 +307,14 @@ about.innerHTML = `
       <img src="./Public/Foto's/Profielfoto2.jpeg" alt="Joren Lenaerts">
     </div>
   </div>
-  <div class="about-links">
-    <a href="https://instagram.com/" target="_blank" class="about-link"><span>Instagram</span><span class="about-link-arr">↗</span></a>
-    <a href="https://linkedin.com/" target="_blank" class="about-link"><span>LinkedIn</span><span class="about-link-arr">↗</span></a>
-    <a href="mailto:joren.lenaerts@outlook.com" class="about-link"><span>Mail</span><span class="about-link-arr">↗</span></a>
-    <a href="./Public/CV.pdf" target="_blank" class="about-link"><span>CV</span><span class="about-link-arr">↓</span></a>
+  <div class="contact-block" id="contact">
+    <div class="contact-label">Contact</div>
+    <div class="about-links">
+      <a href="https://instagram.com/" target="_blank" class="about-link"><span>Instagram</span><span class="about-link-arr">↗</span></a>
+      <a href="https://linkedin.com/" target="_blank" class="about-link"><span>LinkedIn</span><span class="about-link-arr">↗</span></a>
+      <a href="mailto:joren.lenaerts@outlook.com" class="about-link"><span>Mail</span><span class="about-link-arr">↗</span></a>
+      <a href="./Public/CV.pdf" target="_blank" class="about-link"><span>CV</span><span class="about-link-arr">↓</span></a>
+    </div>
   </div>
 `;
 feed.after(about);
