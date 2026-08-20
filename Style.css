@@ -237,6 +237,7 @@ nav {
   font-size: 13px;
   line-height: 1.85;
   color: #ffffff;
+  white-space: pre-line;
 }
 
 .exp-tags {
@@ -290,6 +291,7 @@ nav {
   line-height: 1.85;
   color: #ffffff;
   max-width: 720px;
+  white-space: pre-line;
 }
 
 .exp-image-grid {

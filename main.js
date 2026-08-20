@@ -4,7 +4,7 @@ const projects = [
     cat: 'Automotive · CAD · Keyshot',
     img: "./Public/Foto's/Post Headlights.jpg",
     details: ["./Public/Foto's/HeadlightsRender1.webp", "./Public/Foto's/HeadlightsRender2.webp", "./Public/Foto's/HeadlightsRender3.webp"],
-    desc: 'Concept automotive render geïnspireerd op Audi en Mercedes-Benz vormentaal. Gefocust op lichtvlakken, silhouet en materiaaldiepte. Headlights en taillights toegevoegd op basis van een eerder bachelorproject.',
+    desc: 'Concept automotive render geïnspireerd op Audi en Mercedes-Benz vormentaal. Gefocust op lichtvlakken, silhouet en materiaaldiepte. Op basis van een eerder bachelorproject Echo heb ik head en tail lights toegevoegd aan mijn CAD-model. Lichten geven autos een bepaalde uitstraling, ook de herkenbaarheid van een merk gaat er mee gepaard, hierdoor is dit een essentieel element binnen een ontwerp.',
     extra: '',
     tags: ['Automotive', 'CATIA', 'Render', 'Concept'],
     bg: '#10101a',
@@ -14,7 +14,7 @@ const projects = [
     cat: 'Automotive · CAD · CFD optimization',
     img: "./Public/Foto's/Lmp_V0.jpg",
     details: ['./Public/Foto\'s/Render_5_Lmp.webp', './Public/Foto\'s/Render_7_Lmp.webp', './Public/Foto\'s/Render_9_Lmp.webp'],
-    desc: 'In mijn vrije tijd ben ik veel bezig met het maken van concept ontwerpen. Dit project is een exacte kopie van wat ik op vijf uur kan tekenen. Het hele modeleerproces is opgenomen via Youtube zodat mensen binnen HydroTeam hier ook nuttige info uit kunnen halen. Het idee: Een Lmp concept wagen waar gebaseerd op een 3D model van online met eigen inbreng. Imagine and shape gebruik ik graag om concepten en complexe geometrieën snel te visualiseren. Wat in tradisionele CAD dagen duurt teken je hier op minder dan 10 minuten.',
+    desc: 'In mijn vrije tijd ben ik veel bezig met het maken van concept ontwerpen. Dit project is representatief van wat ik op vijf uur kan tekenen binnen Imagine and shape. Het hele modeleerproces is opgenomen via Youtube zodat mensen binnen HydroTeam hier de nodige info uit kunnen halen. Het idee: Een Lmp concept wagen waar gebaseerd op een 3D model met eigen inbreng. Imagine and shape gebruik ik graag om concepten en complexe geometrieën snel te visualiseren. Wat in tradisionele CAD dagen duurt teken je hier op minder dan 10 minuten.',
     tags: ['CATIA I&S', 'NURBS', 'Hydroteam'],
     bg: '#120a0a',
   },
@@ -34,6 +34,11 @@ const projects = [
         label: 'Design en productie — Jaar 2',
         desc: 'Tijdens het jaar zijn er veel factoren die het ontwerpprocces beinvloeden. Tijdens het jaar zijn er verschillende elementen veranderd. Zo heb ik in het begin van het jaar voor CAD tutorials gezorgd. Dit helpt het team te begrijpen hoe ze complexe ideen kunnen maken aan de hand van Imagine and shape in CATIA. In het tweede semester zijn we begonnen met iteraties op het voorgaande model. Hier is zowel een CFD als productie file van opgemaakt. Momenteel zijn we simulaties aan het uitvoeren en wordt het conceptmodel ge 3D print.',
         details: ["./Public/Foto's/Ligier_JS2R_V0_ReImagine_Back.webp", "./Public/Foto's/Ligier_JS2R_V0_ReImagine_front.webp", "./Public/Foto's/Ligier_JS2R_V0_ReImagine_side.webp"],
+      },
+      {
+        label: 'Design en productie — Vakantie',
+        desc: 'Tijdens de vakantie ben ik bezig geweest met het uittekenen van een productieklaar paneel. Dit aan de hand van complexe surfaces binnen solidworks. ',
+        details: ['', '', ''],
       },
       {
         label: 'Grafisch ontwerp — Tussentijds',
@@ -149,10 +154,13 @@ function renderPhotoTrio(photos, altPrefix = 'detail') {
 
 function projectPanelHTML(project) {
   if (project.chapters?.length) {
-    return project.chapters.map((chapter, index) => {
+    const chapterMarkup = project.chapters.map((chapter, index) => {
       const chapterPhotos = renderPhotoTrio(chapter.details, `chapter ${index + 1}`);
       const introBlock = index === 0
         ? `<div class="exp-title">${escapeHTML(project.title || '')}</div><div class="exp-cat">${escapeHTML(project.cat || '')}</div>`
+        : '';
+      const extraBlock = chapter.extra
+        ? `<div class="exp-row--extra"><p class="exp-extra">${escapeHTML(chapter.extra)}</p></div>`
         : '';
 
       return `
@@ -166,8 +174,15 @@ function projectPanelHTML(project) {
           </div>
         </div>
         ${chapterPhotos ? `<div class="exp-row--trio">${chapterPhotos}</div>` : ''}
+        ${extraBlock}
       `;
     }).join('');
+
+    const projectExtra = project.extra
+      ? `<div class="exp-row--extra"><p class="exp-extra">${escapeHTML(project.extra)}</p></div>`
+      : '';
+
+    return `${chapterMarkup}${projectExtra}`;
   }
 
   const photos = renderPhotoTrio(project.details);
