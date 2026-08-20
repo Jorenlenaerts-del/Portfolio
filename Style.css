@@ -545,7 +545,25 @@ footer span {
 }
 
 @media (max-width: 480px) {
-  .nav-links { display: none; }
+  nav {
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
   .quad-row { grid-template-columns: repeat(2, 1fr); }
   .about-links { grid-template-columns: 1fr; }
 }
