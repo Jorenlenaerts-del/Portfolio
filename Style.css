@@ -240,23 +240,6 @@ nav {
   white-space: pre-line;
 }
 
-.exp-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 24px;
-}
-
-.exp-tag {
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  color: var(--white);
-}
-
 /* RIJ 2 — 3 foto's naast elkaar */
 .exp-row--trio {
   display: flex;
@@ -279,6 +262,54 @@ nav {
   display: block;
 }
 
+/* COMPACTE SCHETS-GALLERY */
+.sketch-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  background: var(--card-bg-deep);
+  margin-bottom: 3px;
+}
+
+.sketch-slide {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--card-bg-alt);
+  border-radius: 4px;
+  padding: 0;
+}
+
+.sketch-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.sketch-slide figcaption {
+  position: absolute;
+  left: 16px;
+  bottom: 10px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sketch-slide:nth-child(1),
+.sketch-slide:nth-child(4) {
+  grid-column: span 2;
+  aspect-ratio: 2 / 1;
+}
+
+.sketch-slide:nth-child(1) img,
+.sketch-slide:nth-child(4) img {
+  object-fit: cover;
+  object-position: center;
+}
+
 /* RIJ 3 — extra tekst volledig breed */
 .exp-row--extra {
   background: var(--card-bg);
@@ -292,27 +323,6 @@ nav {
   color: #ffffff;
   max-width: 720px;
   white-space: pre-line;
-}
-
-.exp-image-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, minmax(180px, 1fr));
-  gap: 3px;
-  margin-bottom: 3px;
-}
-
-.exp-image-grid-cell {
-  overflow: hidden;
-  background: var(--card-bg-alt);
-}
-
-.exp-image-grid-cell img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
 }
 
 .exp-chapter-label {
@@ -349,7 +359,8 @@ nav {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;
-  gap: 5px;
+  gap: 3px;
+  margin-bottom: 60px;
 }
 
 .quad-cell {
@@ -371,7 +382,7 @@ nav {
 }
 
 .about-divider {
-  padding: 12px 0 20px;
+  padding: 0 0 20px;
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -441,52 +452,6 @@ nav {
   display: block;
 }
 
-.contact-block {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.contact-label {
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  color: var(--white);
-  padding-top: 12px;
-}
-
-.about-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 3px;
-}
-
-.about-link {
-  background: var(--card-bg);
-  border-radius: 4px;
-  padding: 24px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-decoration: none;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted-strong);
-  transition: background 0.2s, color 0.2s;
-}
-
-.about-link:hover {
-  background: var(--card-bg-alt);
-  color: var(--white);
-}
-
-.about-link-arr {
-  font-size: 14px;
-  color: var(--muted-strong);
-}
-
 /* ── FOOTER ── */
 footer {
   padding: 40px;
@@ -519,6 +484,13 @@ footer span {
   }
 
   .slice-title { font-size: 16px; }
+  .slice-meta { min-width: 0; max-width: 100%; }
+  .slice-title {
+    display: block;
+    max-width: 100%;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
   .slice-cat { display: none; }
   .slice-line { display: none; }
   .slice-over {
@@ -531,6 +503,8 @@ footer span {
   .exp-text { padding: 24px 20px; }
   .exp-row--extra { padding: 24px 20px; }
 
+  .sketch-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
   .quad-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
   .about-section { padding: 0 12px 60px; }
@@ -539,8 +513,6 @@ footer span {
   .about-photo-block { display: none; }
   .about-name { font-size: 28px; }
   .about-bio { color: rgba(242, 242, 240, 0.88); }
-  .about-links { grid-template-columns: 1fr 1fr; }
-
   footer { padding: 24px 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
 }
 
@@ -565,5 +537,4 @@ footer span {
   }
 
   .quad-row { grid-template-columns: repeat(2, 1fr); }
-  .about-links { grid-template-columns: 1fr; }
 }

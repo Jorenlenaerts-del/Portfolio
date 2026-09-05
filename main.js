@@ -4,10 +4,11 @@ const projects = [
     cat: 'Automotive · CAD · Keyshot',
     img: "./Public/Foto's/Post Headlights.jpg",
     details: ["./Public/Foto's/HeadlightsRender1.webp", "./Public/Foto's/HeadlightsRender2.webp", "./Public/Foto's/HeadlightsRender3.webp"],
-    desc: 'Concept automotive render geïnspireerd op Audi en Mercedes-Benz vormentaal. Gefocust op lichtvlakken, silhouet en materiaaldiepte. Op basis van een eerder bachelorproject Echo heb ik head en tail lights toegevoegd aan mijn CAD-model. Lichten geven autos een bepaalde uitstraling, ook de herkenbaarheid van een merk gaat er mee gepaard, hierdoor is dit een essentieel element binnen een ontwerp.',
-    extra: '',
+    desc: 'Concept automotive render geïnspireerd op Audi en Mercedes-Benz vormentaal. Op basis van een eerder bachelorproject Echo heb ik head en tail lights toegevoegd aan mijn CAD-model. Lichten geven autos een bepaalde uitstraling, ook de herkenbaarheid van een merk gaat er mee gepaard, hierdoor is dit een essentieel element binnen een ontwerp.',
+    extra: 'Dankzij de bepaalde hoeveelheid detail in de lichten kwamen de renders er sterk uit. Hiervoor heb ik Keyshot gebruikt en gewerkt met focus en blurr voor een artistiek.',
     tags: ['Automotive', 'CATIA', 'Render', 'Concept'],
     bg: '#10101a',
+    
   },
   {
     title: 'LMP_V0',
@@ -38,7 +39,7 @@ const projects = [
       {
         label: 'Design en productie — Vakantie',
         desc: 'Tijdens de vakantie ben ik bezig geweest met het uittekenen van een productieklaar paneel. Dit aan de hand van complexe surfaces binnen solidworks. ',
-        details: ['', '', ''],
+        details: ["", "", ""],
       },
       {
         label: 'Grafisch ontwerp — Tussentijds',
@@ -67,10 +68,20 @@ const projects = [
     bg: '#120e06',
   },
   {
-    title: 'Digital Sketching',
+    title: 'Sketching',
     cat: 'Photoshop · Vizcom',
     img: "./Public/Foto's/DigitaalConcepttekenen.jpg",
     details: ['', '', ''],
+    slideshow: [
+      { src: "./Public/Foto's/Schets1.webp", label: 'Schets 1' },
+      { src: "./Public/Foto's/Schets2.webp", label: 'Schets 2' },
+      { src: "./Public/Foto's/Schets3.webp", label: 'Schets 3' },
+      { src: "./Public/Foto's/Schets4.webp", label: 'Schets 4' },
+      { src: "./Public/Foto's/Grafisch/RoeffaersLab.png", label: 'RoeffaersLab' },
+      { src: "./Public/Foto's/Grafisch/PlaSeatic P and particles.png", label: 'PlaSeatic' },
+      { src: "./Public/Foto's/Grafisch/DreamCarCollective_V4.png", label: 'Dream Car Collective' },
+      { src: "./Public/Foto's/Grafisch/Sama Massages.png", label: 'Sama Massages' },
+    ],
     desc: 'Tijdens mijn opleidingen Product Design en Product Ontwikkeling heb ik verschillende lessen gekregen over digitaal tekenen. Hier gebruik ik grotendeels photoshop voor. Ook om renders masteren qua licht en reflecties. Daarnaast gebruik ik ook Vizcom om snel concepten te visualiseren.',
     tags: ['Photoshop', 'Vizcom', 'Sketching'],
     bg: '#120e06',
@@ -83,6 +94,13 @@ const projects = [
     desc: 'Be-Flow is een ontwerpconcept waarbij aerodynamica de vorm bepaald. In plaas van luchtstromen te weerstaan worden deze ontarmd en gebruikt om de vorm te creëren. In mijn concept zijn er drie ontwerpen gemaakt. Een stoel, lamp en wijnhouder. De drie ontwerpen zijn in deze volgorde ontworpen. Het tekenen in Fusion van deze modellen was een groeiproces, maar dankzij hun T spline form en mijn ervaring met het Echo project heeft hier bij geholpen.Met de functie van de objecten in het achterhoofd wordt de vorm door de "wake" vereenvoudigd en omgevormd tot een organish object.',
     tags: [],
     bg: '#120e06',
+  },
+  {
+    title: 'Advanced CAD',
+    cat: 'CAD · Advanced modeling',
+    desc: 'Een verzameling van projecten waarin ik complexe CAD-modellen en surfaces uitwerk.',
+    tags: ['CAD', 'Surfaces'],
+    bg: '#0f1118',
   },
   {
     title: 'Echo',
@@ -152,6 +170,23 @@ function renderPhotoTrio(photos, altPrefix = 'detail') {
     .join('');
 }
 
+function renderSketchSlideshow(slides) {
+  if (!slides?.length) return '';
+
+  const slideMarkup = slides.map((slide, index) => `
+    <figure class="sketch-slide" data-slide="${index}">
+      <img src="${slide.src}" alt="${escapeHTML(slide.label || `sketch ${index + 1}`)}" loading="${index === 0 ? 'eager' : 'lazy'}">
+      <figcaption>${escapeHTML(slide.label || `Sketch ${index + 1}`)}</figcaption>
+    </figure>
+  `).join('');
+
+  return `
+    <div class="sketch-gallery">
+      ${slideMarkup}
+    </div>
+  `;
+}
+
 function projectPanelHTML(project) {
   if (project.chapters?.length) {
     const chapterMarkup = project.chapters.map((chapter, index) => {
@@ -186,6 +221,7 @@ function projectPanelHTML(project) {
   }
 
   const photos = renderPhotoTrio(project.details);
+  const slideshow = renderSketchSlideshow(project.slideshow);
 
   return `
     <div class="exp-row--main">
@@ -197,7 +233,7 @@ function projectPanelHTML(project) {
         </div>
       </div>
     </div>
-    ${photos ? `<div class="exp-row--trio">${photos}</div>` : ''}
+    ${slideshow || (photos ? `<div class="exp-row--trio">${photos}</div>` : '')}
     ${project.extra ? `<div class="exp-row--extra"><p class="exp-extra">${escapeHTML(project.extra)}</p></div>` : ''}
   `;
 }
@@ -310,25 +346,20 @@ about.id = 'about';
 about.className = 'about-section';
 about.innerHTML = `
   <div class="about-divider">
-    <span class="about-divider-label">About Me</span>
+    <span class="about-divider-label">Over mij</span>
   </div>
   <div class="about-main">
     <div class="about-block">
       <div class="about-name">Joren<br>Lenaerts</div>
       <div class="about-role">Student · AP Antwerpen</div>
-      <p class="about-bio">Mezelf beschrijven ik als een bewonderaar. Ik kijk graag naar objecten/situaties en natuur, maar met een focus op detail. Deze observaties gebruik ik in mijn ontwerpen. Verder ben ik een zeer sociaal persoon en werk ik graag in groepen. Als grootste troef ben ik iemand die graag nieuwe software uitprobeert waardoor ik snel kan aanpassen.</p>
+      <p class="about-bio">Als ontwerper en als persoon ben ik sterk verwonderd door mijn omgeving. Details en kleine imperfecties vallen mij snel op, waardoor ik steeds kritisch maar met een open blik naar mijn omgeving en mijn eigen werk kijk. Deze nieuwsgierigheid en kritische houding stimuleren mij om mezelf voortdurend te ontwikkelen.
+
+Daarnaast ben ik een sociaal persoon die zich gemakkelijk aanpast aan nieuwe situaties en graag met verschillende mensen samenwerkt. Een belangrijke interesse binnen mijn ontwerpopleiding is CAD en productiegericht tekenen. Deze technische vaardigheden komen binnen HydroTeam goed van pas en bieden mij de mogelijkheid om mijn kennis in een praktische en technische context toe te passen.
+
+Naast het technische aspect speelt automotive design een grote rol in mijn ontwikkeling als ontwerper. Mijn passie voor auto’s en automotive design vormt de belangrijkste motivatie binnen mijn ontwerpen en bepaalt mee het carrièrepad dat ik in de toekomst wil volgen.</p>
     </div>
     <div class="about-photo-block">
       <img src="./Public/Foto's/Profielfoto2.jpeg" alt="Joren Lenaerts">
-    </div>
-  </div>
-  <div class="contact-block" id="contact">
-    <div class="contact-label">Contact</div>
-    <div class="about-links">
-      <a href="https://instagram.com/" target="_blank" class="about-link"><span>Instagram</span><span class="about-link-arr">↗</span></a>
-      <a href="https://linkedin.com/" target="_blank" class="about-link"><span>LinkedIn</span><span class="about-link-arr">↗</span></a>
-      <a href="mailto:joren.lenaerts@outlook.com" class="about-link"><span>Mail</span><span class="about-link-arr">↗</span></a>
-      <a href="./Public/CV.pdf" target="_blank" class="about-link"><span>CV</span><span class="about-link-arr">↓</span></a>
     </div>
   </div>
 `;
